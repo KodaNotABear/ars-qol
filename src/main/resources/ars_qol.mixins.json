@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "studio.akuro.arsqol.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "minVersion": "0.8",
+  "client": ["SpellBookRendererMixin"],
+  "mixins": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
