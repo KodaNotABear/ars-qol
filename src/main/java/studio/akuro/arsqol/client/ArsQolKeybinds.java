@@ -1,5 +1,6 @@
 package studio.akuro.arsqol.client;
 
+import com.hollingsworth.arsnouveau.client.registry.ModKeyBindings;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.neoforged.api.distmarker.Dist;
@@ -11,6 +12,7 @@ import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.lwjgl.glfw.GLFW;
 import studio.akuro.arsqol.ArsQol;
+import studio.akuro.arsqol.common.network.CycleSpellPayload;
 import studio.akuro.arsqol.common.network.QuickCastPayload;
 
 @EventBusSubscriber(modid = ArsQol.MOD_ID, value = Dist.CLIENT)
@@ -36,7 +38,14 @@ public class ArsQolKeybinds {
             ticksSinceCast = 0;
             PacketDistributor.sendToServer(QuickCastPayload.INSTANCE);
         }
-
         ticksSinceCast++;
+
+        while (ModKeyBindings.NEXT_SLOT.consumeClick()) {
+            PacketDistributor.sendToServer(new CycleSpellPayload(true));
+        }
+
+        while (ModKeyBindings.PREVIOUS_SLOT.consumeClick()) {
+            PacketDistributor.sendToServer(new CycleSpellPayload(false));
+        }
     }
 }
