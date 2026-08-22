@@ -6,6 +6,8 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import studio.akuro.arsqol.client.SpellBookCurioRenderer;
+import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
 @Mod(ArsQol.MOD_ID)
 public class ArsQol {
@@ -21,6 +23,10 @@ public class ArsQol {
             CauldronInteraction.WATER.map().put(ItemsRegistry.APPRENTICE_SPELLBOOK.get(), CauldronInteraction.DYED_ITEM);
             CauldronInteraction.WATER.map().put(ItemsRegistry.ARCHMAGE_SPELLBOOK.get(), CauldronInteraction.DYED_ITEM);
             CauldronInteraction.WATER.map().put(ItemsRegistry.CREATIVE_SPELLBOOK.get(), CauldronInteraction.DYED_ITEM);
+            CuriosRendererRegistry.register(ItemsRegistry.NOVICE_SPELLBOOK.get(), SpellBookCurioRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.APPRENTICE_SPELLBOOK.get(), SpellBookCurioRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ARCHMAGE_SPELLBOOK.get(), SpellBookCurioRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.CREATIVE_SPELLBOOK.get(), SpellBookCurioRenderer::new);
         });
     }
 

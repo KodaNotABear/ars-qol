@@ -1,5 +1,5 @@
 {
-  "icon": "curios:slot/empty_curio_slot",
+  "icon": "ars_qol:slot/spellbook",
   "order": 100,
   "size": 1,
   "validators": ["curios:tag"]

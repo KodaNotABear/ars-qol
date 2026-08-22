@@ -13,7 +13,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.phys.BlockHitResult;
@@ -36,11 +35,7 @@ public class QuickCastLogic {
         long now = player.level().getGameTime();
         if (now - LAST_CAST.getOrDefault(player.getUUID(), 0L) < COOLDOWN_TICKS) return;
 
-        ItemStack book = CuriosApi.getCuriosInventory(player)
-                .flatMap(inv -> inv.findFirstCurio(s -> s.getItem() instanceof SpellBook))
-                .map(SlotResult::stack)
-                .orElse(ItemStack.EMPTY);
-        if (book.isEmpty()) return;
+        ItemStack book = CuriosBookUtil.findBook(player);
         LAST_CAST.put(player.getUUID(), now);
 
         AbstractCaster<?> caster = SpellCasterRegistry.from(book);
