@@ -39,6 +39,7 @@ neoForge {
     runs {
         client {
             client()
+            programArguments.addAll('--username', 'Koda')
         }
         server {
             server()

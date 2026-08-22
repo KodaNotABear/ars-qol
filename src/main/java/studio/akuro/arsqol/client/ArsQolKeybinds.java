@@ -1,0 +1,42 @@
+package studio.akuro.arsqol.client;
+
+import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.KeyMapping;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+import net.neoforged.neoforge.client.settings.KeyConflictContext;
+import net.neoforged.neoforge.network.PacketDistributor;
+import org.lwjgl.glfw.GLFW;
+import studio.akuro.arsqol.ArsQol;
+import studio.akuro.arsqol.common.network.QuickCastPayload;
+
+@EventBusSubscriber(modid = ArsQol.MOD_ID, value = Dist.CLIENT)
+public class ArsQolKeybinds {
+
+    private static int ticksSinceCast = 0;
+
+    public static final KeyMapping QUICK_CAST = new KeyMapping(
+            "key.ars_qol.quick_cast",
+            KeyConflictContext.IN_GAME,
+            InputConstants.Type.KEYSYM,
+            GLFW.GLFW_KEY_R,
+            "key.categories.ars_qol");
+
+    @SubscribeEvent
+    public static void registerKeys(RegisterKeyMappingsEvent event) {
+        event.register(QUICK_CAST);
+    }
+
+    @SubscribeEvent
+    public static void onClientTick(ClientTickEvent.Post event) {
+        if (QUICK_CAST.isDown() && ticksSinceCast >= 4) {
+            ticksSinceCast = 0;
+            PacketDistributor.sendToServer(QuickCastPayload.INSTANCE);
+        }
+
+        ticksSinceCast++;
+    }
+}

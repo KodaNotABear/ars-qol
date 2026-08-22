@@ -1,6 +1,5 @@
 package studio.akuro.arsqol.mixin;
 
-import com.hollingsworth.arsnouveau.api.spell.Spell;
 import com.hollingsworth.arsnouveau.client.renderer.item.SpellBookRenderer;
 import com.hollingsworth.arsnouveau.common.items.SpellBook;
 import net.minecraft.core.component.DataComponents;
@@ -14,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoItemRenderer;
 import software.bernie.geckolib.util.Color;
+import studio.akuro.arsqol.client.DyedSpellBooks;
 import studio.akuro.arsqol.client.SpellBookGoldLayer;
 
 import static studio.akuro.arsqol.client.DyedSpellBooks.DYED_TEXTURE;
@@ -30,7 +30,7 @@ public abstract class SpellBookRendererMixin extends GeoItemRenderer<SpellBook> 
         at = @At("HEAD"), remap = false, cancellable = true)
     private void arsqol$dyedTexture(SpellBook book, CallbackInfoReturnable<ResourceLocation> cir) {
 
-        if (isDyed()) cir.setReturnValue(DYED_TEXTURE);
+        if (DyedSpellBooks.isDyed(this.currentItemStack)) cir.setReturnValue(DYED_TEXTURE);
 
     }
 
@@ -41,14 +41,9 @@ public abstract class SpellBookRendererMixin extends GeoItemRenderer<SpellBook> 
 
     @Override
     public Color getRenderColor(SpellBook animatable, float partialTick, int packedLight) {
-        if (isDyed()) {
+        if (DyedSpellBooks.isDyed(this.currentItemStack)) {
             return Color.ofOpaque(currentItemStack.get(DataComponents.DYED_COLOR).rgb());
         }
         return super.getRenderColor(animatable, partialTick, packedLight);
-    }
-
-    @Unique
-    private boolean isDyed() {
-        return currentItemStack != null && currentItemStack.has(DataComponents.DYED_COLOR); //Prevents NPE
     }
 }
