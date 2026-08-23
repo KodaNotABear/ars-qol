@@ -7,11 +7,12 @@ config="ars_qol.mixins.json"
 
 [[mods]]
 modId="${mod_id}"
+logoFile="icon.png"
 version="${mod_version}"
 displayName="${mod_name}"
 authors="Akuro Studio"
 description='''
-Quality of life additions for Ars Nouveau: curios spellbook casting, extended spellbooks, and dyeable books.
+Quality of life additions for Ars Nouveau: curios spellbook casting and dyeable books.
 '''
 
 [[dependencies.${mod_id}]]

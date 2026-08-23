@@ -1,4 +1,6 @@
 {
   "key.ars_qol.quick_cast": "Quick Cast (Curios)",
-  "key.categories.ars_qol": "Ars QOL"
+  "key.categories.ars_qol": "Ars QOL",
+  "curios.identifier.spellbook": "Spellbook",
+  "curios.modifiers.spellbook": "When worn:"
 }
