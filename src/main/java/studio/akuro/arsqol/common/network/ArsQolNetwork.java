@@ -29,8 +29,7 @@ public class ArsQolNetwork {
     }
 
     private static void handleCycle(CycleSpellPayload payload, IPayloadContext context) {
-        if (!StackUtil.getHeldSpellbook(context.player()).isEmpty()) return;
-        ItemStack book = CuriosBookUtil.findBook(context.player());
+        ItemStack book = CuriosBookUtil.fallbackBook(context.player());
         if (book.isEmpty()) return;
         AbstractCaster<?> caster = SpellCasterRegistry.from(book);
         if (caster == null) return;

@@ -3,8 +3,8 @@
   "package": "studio.akuro.arsqol.mixin",
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
-  "client": ["SpellBookRendererMixin"],
-  "mixins": ["PacketSetCasterSlotMixin"],
+  "client": ["SpellBookRendererMixin", "SpellSlottedScreenMixin"],
+  "mixins": ["PacketSetCasterSlotMixin", "SpellBookSavePacketMixin"],
   "injectors": {
     "defaultRequire": 1
   }

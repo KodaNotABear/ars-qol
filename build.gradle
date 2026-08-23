@@ -24,6 +24,7 @@ dependencies {
     implementation "software.bernie.geckolib:geckolib-neoforge-1.21.1:4.9.2"
     implementation "top.theillusivec4.curios:curios-neoforge:9.5.1+1.21.1"
     runtimeOnly "mezz.jei:jei-1.21.1-neoforge:19.43.0.395"
+    compileOnly "com.hollingsworth.nuggets:nuggets-neoforge-1.21.1:1.1.0.48"
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)

@@ -35,6 +35,7 @@ public class QuickCastLogic {
         long now = player.level().getGameTime();
         if (now - LAST_CAST.getOrDefault(player.getUUID(), 0L) < COOLDOWN_TICKS) return;
 
+        // Held book can still be cast with right click so we do not defer from the curios cast
         ItemStack book = CuriosBookUtil.findBook(player);
         LAST_CAST.put(player.getUUID(), now);
 

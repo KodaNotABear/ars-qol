@@ -1,8 +1,12 @@
 package studio.akuro.arsqol.client;
 
+import com.hollingsworth.arsnouveau.client.gui.book.GuiSpellBook;
 import com.hollingsworth.arsnouveau.client.registry.ModKeyBindings;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -12,6 +16,7 @@ import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.lwjgl.glfw.GLFW;
 import studio.akuro.arsqol.ArsQol;
+import studio.akuro.arsqol.common.CuriosBookUtil;
 import studio.akuro.arsqol.common.network.CycleSpellPayload;
 import studio.akuro.arsqol.common.network.QuickCastPayload;
 
@@ -46,6 +51,14 @@ public class ArsQolKeybinds {
 
         while (ModKeyBindings.PREVIOUS_SLOT.consumeClick()) {
             PacketDistributor.sendToServer(new CycleSpellPayload(false));
+        }
+
+        while (ModKeyBindings.OPEN_BOOK.consumeClick()) {
+            Minecraft minecraft = Minecraft.getInstance();
+            if (minecraft.screen != null) continue;
+            ItemStack book = CuriosBookUtil.fallbackBook(minecraft.player);
+            if (book.isEmpty()) continue;
+            minecraft.setScreen(new GuiSpellBook(InteractionHand.MAIN_HAND));
         }
     }
 }

@@ -22,8 +22,7 @@ public class PacketSetCasterSlotMixin {
 
     @Inject(method="onServerReceived", at = @At("HEAD"), remap = false, cancellable = true)
     private void arsqol$curiosFallback(MinecraftServer server, ServerPlayer player, CallbackInfo ci) {
-        if (!StackUtil.getHeldSpellbook(player).isEmpty()) return;
-        ItemStack book = CuriosBookUtil.findBook(player);
+        ItemStack book = CuriosBookUtil.fallbackBook(player);
         if (book.isEmpty()) return;
         AbstractCaster<?> caster = SpellCasterRegistry.from(book);
         if (caster == null) return;

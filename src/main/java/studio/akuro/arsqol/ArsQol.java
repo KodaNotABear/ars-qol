@@ -23,10 +23,6 @@ public class ArsQol {
             CauldronInteraction.WATER.map().put(ItemsRegistry.APPRENTICE_SPELLBOOK.get(), CauldronInteraction.DYED_ITEM);
             CauldronInteraction.WATER.map().put(ItemsRegistry.ARCHMAGE_SPELLBOOK.get(), CauldronInteraction.DYED_ITEM);
             CauldronInteraction.WATER.map().put(ItemsRegistry.CREATIVE_SPELLBOOK.get(), CauldronInteraction.DYED_ITEM);
-            CuriosRendererRegistry.register(ItemsRegistry.NOVICE_SPELLBOOK.get(), SpellBookCurioRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.APPRENTICE_SPELLBOOK.get(), SpellBookCurioRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.ARCHMAGE_SPELLBOOK.get(), SpellBookCurioRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.CREATIVE_SPELLBOOK.get(), SpellBookCurioRenderer::new);
         });
     }
 
