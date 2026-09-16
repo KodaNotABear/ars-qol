@@ -19,6 +19,7 @@ import studio.akuro.arsqol.ArsQol;
 import studio.akuro.arsqol.common.CuriosBookUtil;
 import studio.akuro.arsqol.common.network.CycleSpellPayload;
 import studio.akuro.arsqol.common.network.QuickCastPayload;
+import studio.akuro.arsqol.common.network.QuickCastSlotPayload;
 
 @EventBusSubscriber(modid = ArsQol.MOD_ID, value = Dist.CLIENT)
 public class ArsQolKeybinds {
@@ -51,6 +52,12 @@ public class ArsQolKeybinds {
 
         while (ModKeyBindings.PREVIOUS_SLOT.consumeClick()) {
             PacketDistributor.sendToServer(new CycleSpellPayload(false));
+        }
+
+        for (ModKeyBindings.QuickSlot quickSlot : ModKeyBindings.QuickSlot.VALUES) {
+            while (quickSlot.key().consumeClick()) {
+                PacketDistributor.sendToServer(new QuickCastSlotPayload(quickSlot.slot()));
+            }
         }
 
         while (ModKeyBindings.OPEN_BOOK.consumeClick()) {

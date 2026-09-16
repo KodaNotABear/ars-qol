@@ -22,10 +22,15 @@ public class ArsQolNetwork {
         PayloadRegistrar registrar = event.registrar("1");
         registrar.playToServer(QuickCastPayload.TYPE, QuickCastPayload.STREAM_CODEC, ArsQolNetwork::handleQuickCast);
         registrar.playToServer(CycleSpellPayload.TYPE, CycleSpellPayload.STREAM_CODEC, ArsQolNetwork::handleCycle);
+        registrar.playToServer(QuickCastSlotPayload.TYPE, QuickCastSlotPayload.STREAM_CODEC, ArsQolNetwork::handleQuickCastSlot);
     }
 
     private static void handleQuickCast(QuickCastPayload payload, IPayloadContext context) {
         QuickCastLogic.castFromCurios((ServerPlayer) context.player());
+    }
+
+    private static void handleQuickCastSlot(QuickCastSlotPayload payload, IPayloadContext context) {
+        QuickCastLogic.castSlotFromCurios((ServerPlayer) context.player(), payload.slot());
     }
 
     private static void handleCycle(CycleSpellPayload payload, IPayloadContext context) {

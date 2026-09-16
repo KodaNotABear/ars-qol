@@ -40,7 +40,26 @@ public class QuickCastLogic {
         LAST_CAST.put(player.getUUID(), now);
 
         AbstractCaster<?> caster = SpellCasterRegistry.from(book);
-        Spell spell = caster.getSpell();
+        if (caster == null) return;
+
+        cast(player, book, caster.getSpell());
+    }
+
+    // The quick cast slot keys are ignored unless a book is being held
+    public static void castSlotFromCurios(ServerPlayer player, int slot) {
+
+        //Ignore if the player is holding a book
+        ItemStack book = CuriosBookUtil.fallbackBook(player);
+        if (book.isEmpty()) return;
+
+        AbstractCaster<?> caster = SpellCasterRegistry.from(book);
+        if (caster == null) return;
+
+        cast(player, book, caster.getSpell(slot));
+    }
+
+    private static void cast(ServerPlayer player, ItemStack book, Spell spell) {
+
         if (!spell.isValid()) return;
 
         SpellContext context =  new SpellContext(player.level(), spell, player, new PlayerCaster(player), book);
