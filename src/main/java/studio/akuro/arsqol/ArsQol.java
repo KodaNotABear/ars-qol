@@ -1,13 +1,15 @@
 package studio.akuro.arsqol;
 
-import com.hollingsworth.arsnouveau.setup.registry.ItemsRegistry;
+import com.hollingsworth.arsnouveau.common.items.SpellBook;
 import net.minecraft.core.cauldron.CauldronInteraction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import studio.akuro.arsqol.client.SpellBookCurioRenderer;
-import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
+import studio.akuro.arsqol.common.CuriosBookUtil;
+import top.theillusivec4.curios.api.CuriosApi;
 
 @Mod(ArsQol.MOD_ID)
 public class ArsQol {
@@ -19,10 +21,13 @@ public class ArsQol {
 
     private void commonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            CauldronInteraction.WATER.map().put(ItemsRegistry.NOVICE_SPELLBOOK.get(), CauldronInteraction.DYED_ITEM);
-            CauldronInteraction.WATER.map().put(ItemsRegistry.APPRENTICE_SPELLBOOK.get(), CauldronInteraction.DYED_ITEM);
-            CauldronInteraction.WATER.map().put(ItemsRegistry.ARCHMAGE_SPELLBOOK.get(), CauldronInteraction.DYED_ITEM);
-            CauldronInteraction.WATER.map().put(ItemsRegistry.CREATIVE_SPELLBOOK.get(), CauldronInteraction.DYED_ITEM);
+            for (Item book : CuriosBookUtil.spellBookItems()) {
+                CauldronInteraction.WATER.map().put(book, CauldronInteraction.DYED_ITEM);
+            }
+
+            CuriosApi.registerCurioPredicate(
+                    ResourceLocation.fromNamespaceAndPath(MOD_ID, "spellbook"),
+                    slotResult -> slotResult.stack().getItem() instanceof SpellBook);
         });
     }
 

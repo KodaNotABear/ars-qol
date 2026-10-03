@@ -2,5 +2,5 @@
   "icon": "ars_qol:slot/spellbook",
   "order": 100,
   "size": 1,
-  "validators": ["curios:tag"]
+  "validators": ["ars_qol:spellbook", "curios:tag"]
 }
